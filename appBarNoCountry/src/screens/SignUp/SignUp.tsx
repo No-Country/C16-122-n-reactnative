@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#D7D7D7',
     width: 280,
-    height: 30,
+    height: 35,
     borderRadius: 8,
   },
   labelInput: {

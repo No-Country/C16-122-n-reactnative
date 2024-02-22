@@ -20,6 +20,7 @@
     "flow": "^0.2.3",
     "git": "^0.1.5",
     "react": "18.2.0",
+    "react-icons": "^5.0.1",
     "react-native": "^0.73.4",
     "react-native-element-dropdown": "^2.10.1",
     "react-native-elements": "^3.4.3",

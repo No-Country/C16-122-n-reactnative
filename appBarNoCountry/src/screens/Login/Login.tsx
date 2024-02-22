@@ -27,6 +27,10 @@ function Login() {
     navigation.navigate('SignUp' as never);
   };
 
+  const handleMenu = () => {
+    navigation.navigate('Menu' as never);
+  };
+
   const handlePassword = () => {
     navigation.navigate('Password' as never);
   };
@@ -58,7 +62,7 @@ function Login() {
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
-        <TouchableOpacity onPress={handleSignUp}>
+        <TouchableOpacity onPress={handleMenu}>
           <Text style={styles.createCount}>Registrarme</Text>
         </TouchableOpacity>
       </View>
@@ -93,9 +97,8 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 8,
     backgroundColor: '#D7D7D7',
-    padding: 10,
     width: 288,
-    height: 30,
+    height: 35,
   },
   textTitle: {
     fontSize: 30,

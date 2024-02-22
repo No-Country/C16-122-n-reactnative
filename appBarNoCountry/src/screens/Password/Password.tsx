@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#D7D7D7',
     padding: 10,
     width: 288,
-    height: 30,
+    height: 35,
   },
   label: {
     fontSize: 16,
