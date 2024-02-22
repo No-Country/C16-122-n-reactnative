@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
+
 import {
   View,
   Text,
@@ -17,7 +18,9 @@ function Menu() {
     {type: 'Aperitivo', name: 'Papas fritas', price: '$5.45', quantity: 0},
     {type: 'Desayuno', name: 'salmón', price: '$15', quantity: 0},
   ]);
-  const [selectedType, setSelectedType] = useState('')
+
+  const [selectedType, setSelectedType] = useState('');
+  const navigation = useNavigation();
 
   const incrementCounter = (foodItem: any) => {
     const newFood = food.map(item =>
@@ -38,6 +41,10 @@ function Menu() {
 
   const handleFoodContainerClick = (type: string) => {
     setSelectedType(type);
+  };
+
+  const handleOrder = () => {
+    navigation.navigate('Order' as never);
   };
 
   return (
@@ -61,7 +68,7 @@ function Menu() {
         {food
           .filter(foodItem => foodItem.type === selectedType) 
           .map((foodItem, index) => (
-            <View key={index} style={styles.menuItem}>
+            <TouchableOpacity key={index} style={styles.menuItem}>
               <Image
                 style={styles.images}
                 source={require('../../assets/menu/burguer.png')}
@@ -86,11 +93,11 @@ function Menu() {
                   </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
       </ScrollView>
 
-      <TouchableOpacity style={styles.Button}>
+      <TouchableOpacity onPress={handleOrder} style={styles.Button}>
         <Text style={styles.buttonText}>OK</Text>
       </TouchableOpacity>
     </View>

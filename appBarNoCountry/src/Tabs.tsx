@@ -10,6 +10,7 @@ import Salon from './screens/Salon/Salon.jsx';
 import Password from './screens/Password/Password';
 import AdminPinScreen from './screens/AdminPinScreen/AdminPinScreen.jsx';
 import Menu from './screens/menu/Menu';
+import Order from './screens/order/Order';
 
 const Stack = createStackNavigator();
 
@@ -63,6 +64,7 @@ function Tabs() {
         name="Menu"
         component={Menu}
       />
+      <Stack.Screen name="Order" component={Order} />
       <Stack.Screen name="AdminPinScreen" component={AdminPinScreen} />
     </Stack.Navigator>
   );
