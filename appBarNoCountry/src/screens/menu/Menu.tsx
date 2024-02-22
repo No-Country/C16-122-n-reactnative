@@ -10,9 +10,10 @@ import {
   Image,
   Button,
 } from 'react-native';
+import { FoodItem } from './Menu.type';
 
 function Menu() {
-  const [food, setFood] = useState([
+  const [food, setFood] = useState<FoodItem[]>([
     {type: 'Clasicos', name: 'Hamburguesa', price: '$10.67', quantity: 0},
     {type: 'Bebida', name: 'Refresco', price: '$2.55', quantity: 0},
     {type: 'Aperitivo', name: 'Papas fritas', price: '$5.45', quantity: 0},
@@ -22,14 +23,14 @@ function Menu() {
   const [selectedType, setSelectedType] = useState('');
   const navigation = useNavigation();
 
-  const incrementCounter = (foodItem: any) => {
+  const incrementCounter = (foodItem: FoodItem) => {
     const newFood = food.map(item =>
       item === foodItem ? { ...item, quantity: item.quantity + 1 } : item
     );
     setFood(newFood);
   };
   
-  const decrementCounter = (foodItem: any) => {
+  const decrementCounter = (foodItem: FoodItem) => {
     const newFood = food.map(item =>
       item === foodItem && item.quantity > 0
         ? { ...item, quantity: item.quantity - 1 }
@@ -44,6 +45,7 @@ function Menu() {
   };
 
   const handleOrder = () => {
+
     navigation.navigate('Order' as never);
   };
 
@@ -68,7 +70,7 @@ function Menu() {
         {food
           .filter(foodItem => foodItem.type === selectedType) 
           .map((foodItem, index) => (
-            <TouchableOpacity key={index} style={styles.menuItem}>
+            <TouchableOpacity  key={index} style={styles.menuItem}>
               <Image
                 style={styles.images}
                 source={require('../../assets/menu/burguer.png')}
@@ -97,9 +99,12 @@ function Menu() {
           ))}
       </ScrollView>
 
-      <TouchableOpacity onPress={handleOrder} style={styles.Button}>
-        <Text style={styles.buttonText}>OK</Text>
-      </TouchableOpacity>
+
+      <View style={styles.fixedButtonContainer}>
+        <TouchableOpacity onPress={handleOrder} style={styles.Button}>
+          <Text style={styles.buttonText}>OK</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -181,6 +186,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 35,
     textAlign: 'center',
+  },
+  fixedButtonContainer: {
+    flex: 1,
+    position: 'absolute',
+    top: 600,
+    width: '100%',
+    alignItems: 'center',
   },
   Button: {
     display: 'flex',

@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    padding: 10,
     backgroundColor: '#D7D7D7',
     width: 280,
     height: 35,

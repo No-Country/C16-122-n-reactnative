@@ -64,7 +64,17 @@ function Tabs() {
         name="Menu"
         component={Menu}
       />
-      <Stack.Screen name="Order" component={Order} />
+      <Stack.Screen
+        options={{
+          headerStyle: styles.headerScreen,
+          headerTintColor: '#000',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+        name="Order"
+        component={Order}
+      />
       <Stack.Screen name="AdminPinScreen" component={AdminPinScreen} />
     </Stack.Navigator>
   );

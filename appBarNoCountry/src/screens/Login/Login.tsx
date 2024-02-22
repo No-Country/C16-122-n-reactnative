@@ -62,7 +62,7 @@ function Login() {
 
       <View style={styles.createCountContainer}>
         <Text>¿Aún no tienes una cuenta?</Text>
-        <TouchableOpacity onPress={handleMenu}>
+        <TouchableOpacity onPress={handleSignUp}>
           <Text style={styles.createCount}>Registrarme</Text>
         </TouchableOpacity>
       </View>
