@@ -12,6 +12,7 @@ import Password from './screens/Password/Password';
 import Order from './screens/Order/Order.jsx';
 import ProfilePin from './screens/ProfilePin/ProfilePin.jsx';
 import Menu from './screens/Menu/Menu';
+import Receipt from './screens/Receipt/Receipt';
 const Stack = createStackNavigator();
 
 function Tabs() {
@@ -61,6 +62,18 @@ function Tabs() {
             fontWeight: 'bold',
           },
         }}
+        name="Receipt"
+        component={Receipt}
+      />
+
+      <Stack.Screen
+        options={{
+          headerStyle: styles.headerScreen,
+          headerTintColor: '#000',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
         name="Menu"
         component={Menu}
       />
@@ -77,7 +90,6 @@ function Tabs() {
       />
 
       <Stack.Screen name="ProfilePin" component={ProfilePin} />
-    
     </Stack.Navigator>
   );
 }

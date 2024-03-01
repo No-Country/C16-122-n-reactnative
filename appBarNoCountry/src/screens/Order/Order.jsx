@@ -1,22 +1,26 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import { useAppSelector } from "../../hooks/hooks";
-import { table } from '../../reducers/tableReducer';
-
+import {useAppSelector} from '../../hooks/hooks';
+import {table} from '../../reducers/tableReducer';
 function Order() {
-  const [tableSeleced, settableSelected] = useState(
-    useAppSelector((state) => state.table)
-  );
   const navigation = useNavigation();
+  const [orderItems, setOrderItems] = useState([
+    {id: 1, type: 'hamburguer', category: 'papas', price: '23.00', quantity: 3},
+  ]);
 
   const handleMenu = () => {
     navigation.navigate('Menu');
   };
+
+  const handleDeleteItem = itemId => {
+    const updatedItems = orderItems.filter(item => item.id !== itemId);
+    setOrderItems(updatedItems);
+  };
   return (
     <View style={styles.orderContainer}>
       <View style={styles.orderBar}>
-        <Text style={styles.text}>Mesa {tableSeleced.tableNumber}</Text>
+        <Text style={styles.text}>Mesa 1</Text>
 
         <TouchableOpacity onPress={handleMenu}>
           <Image
@@ -31,23 +35,30 @@ function Order() {
       </View>
 
       <View style={styles.itemContainer}>
-        <View style={styles.orderItem}>
-          <Image
-            style={styles.imageOrder}
-            source={require('../../assets/menu/burguer.png')}
-          />
-          <View>
+        {orderItems.map(item => (
+          <View style={styles.orderItem}>
+            <Image
+              style={styles.imageOrder}
+              source={require('../../assets/menu/burguer.png')}
+            />
             <View>
-              <Text style={styles.typeFood}>hamburguer</Text>
-              <Text style={styles.category}>papas</Text>
+              <View>
+                <Text style={styles.typeFood}>hamburguer</Text>
+                <Text style={styles.category}>papas</Text>
+              </View>
+              <View>
+                <Text style={styles.price}>23.00</Text>
+                <Text style={styles.category}>Cantidad: 3</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.price}>23.00</Text>
-              <Text style={styles.category}>Cantidad: 3</Text>
-            </View>
+            <TouchableOpacity onPress={() => handleDeleteItem(item.id)}>
+              <Image
+                style={styles.delete}
+                source={require('../../assets/trash.png')}
+              />
+            </TouchableOpacity>
           </View>
-        </View>
-        
+        ))}
       </View>
 
       <View style={styles.footerContainer}>
@@ -98,7 +109,6 @@ const styles = StyleSheet.create({
   orderItem: {
     borderRadius: 16,
     backgroundColor: 'white',
-    width: 250,
     height: 100,
     padding: 5,
     display: 'flex',
@@ -171,6 +181,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#AA84FC',
     borderRadius: 5,
+  },
+  delete: {
+    width: 30,
+    height: 30,
   },
 });
 
