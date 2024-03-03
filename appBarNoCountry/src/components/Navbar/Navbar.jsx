@@ -2,44 +2,70 @@ import * as React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Icon, ListItem, Avatar} from '@rneui/themed';
-import {Button, XGroup, XStack,YStack,ZStack} from 'tamagui';
+import {Button, XGroup, XStack, YStack, ZStack} from 'tamagui';
 
-function Navbar({role, onPressAdd, onPressEdit, onPressMenu}) {
+function Navbar({
+  role,
+  title,
+  onPressAdd,
+  onPressEdit,
+  onPressMenu,
+  onPlusOptions,
+  isGoBack
+}) {
   const navigation = useNavigation();
   const [expanded, setExpanded] = React.useState(false);
 
   return (
     <View style={styles.navbar}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Salon</Text>
+        <View style={{flexDirection: 'row'}}>
+          {isGoBack ? (
+            <Button
+              size="$3"
+              chromeless
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <Icon name="arrow-back" />
+            </Button>
+          ) : null}
+
+          <Text style={styles.title}>{title}</Text>
+        </View>
       </View>
       {role === 'ADMIN' ? (
         <XStack gap="$1" justifyContent="center" style={{marginRight: 5}}>
           <Button size="$3" chromeless onPress={onPressAdd}>
             <Icon name="add-circle" color={'green'} />
           </Button>
-          <Button size="$3" chromeless onPress={onPressEdit}>
-            <Icon name="edit" />
-          </Button>
-          <Button size="$3" chromeless onPress={onPressMenu}>
-            <Icon name="menu" />
-          </Button>
-          
+          {onPlusOptions ? (
+            <>
+              <Button size="$3" chromeless onPress={onPressEdit}>
+                <Icon name="edit" />
+              </Button>
+              <Button size="$3" chromeless onPress={onPressMenu}>
+                <Icon name="menu" />
+              </Button>
+            </>
+          ) : null}
         </XStack>
-        
       ) : null}
 
-      <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
-        <View style={styles.imageContainer}>
-        <Image
+      {onPlusOptions ? (
+        <TouchableOpacity onPress={() => navigation.navigate('SelectPerfil')}>
+          <View style={styles.imageContainer}>
+            <Image
               style={styles.image}
-              source={role === "ADMIN" ? require('../../assets/menu/addmin.png') : require('../../assets/menu/waiter.png')}
+              source={
+                role === 'ADMIN'
+                  ? require('../../assets/menu/addmin.png')
+                  : require('../../assets/menu/waiter.png')
+              }
             />
-        </View>
-      </TouchableOpacity>
-      
-      
-      
+          </View>
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 }
@@ -57,6 +83,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
+    marginTop: 5,
+    color: 'black',
     fontSize: 20,
     fontWeight: 'bold',
   },

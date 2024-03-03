@@ -57,13 +57,7 @@ function Tabs() {
       <Stack.Screen name="ManageProfile" component={ManageProfiles} options={{ headerShown: false }} />
       <Stack.Screen name="Salon" component={Salon} options={{ headerShown: false }}/>
       <Stack.Screen
-        options={{
-          headerStyle: styles.headerScreen,
-          headerTintColor: '#000',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
+        options={{ headerShown: false }}
         name="Menu"
         component={Menu}
       />

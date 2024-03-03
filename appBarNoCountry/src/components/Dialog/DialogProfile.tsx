@@ -4,10 +4,12 @@ import {
   Text,
   Modal,
   StyleSheet,
+  Platform,
   TouchableWithoutFeedback,
 } from 'react-native';
+import {Button, XGroup, XStack, YStack, Input} from 'tamagui';
+import RNPickerSelect, { Item } from 'react-native-picker-select';
 import {Icon} from '@rneui/themed';
-import {Button, XStack, Input, YStack} from 'tamagui';
 
 interface DialogProfileProps {
   isVisible: boolean;
@@ -15,13 +17,17 @@ interface DialogProfileProps {
   labelProp1?: string;
   labelProp2?: string;
   labelProp3?: string;
+  labelProp4?: string;
   prop1?: string;
   prop2?: string;
   prop3?: string;
+  prop4?: string;
+  arrayValues?: any[];
   onHidePress: () => void;
   onChangeProp1: (text: string) => void;
   onChangeProp2: (text: string) => void;
   onChangeProp3: (text: string) => void;
+  onChangeProp4: (value: any) => void;
   onConfirm: () => void;
 }
 
@@ -31,14 +37,18 @@ const Dialog: React.FC<DialogProfileProps> = ({
   labelProp1,
   labelProp2,
   labelProp3,
+  labelProp4,
   prop1,
   prop3,
   prop2,
+  prop4,
   onChangeProp1,
+  arrayValues,
   onHidePress,
   onConfirm,
   onChangeProp2,
   onChangeProp3,
+  onChangeProp4,
 }) => {
   return (
     <Modal
@@ -50,86 +60,126 @@ const Dialog: React.FC<DialogProfileProps> = ({
         <View style={styles.overlay}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                {title}
-              </Text>
+              <Text style={styles.modalText}>{title}</Text>
               <View style={styles.buttonsView}>
-               <YStack gap="$1"
-            justifyContent='center'
-            alignItems='center'
-            padding="$2">
-              {labelProp1 && (
-                <XStack
-                  gap="$2"
-                  width={'100%'}
+                <YStack
+                  gap="$1"
                   justifyContent="center"
                   alignItems="center"
-                  style={{ marginRight: 5 }}>
-                    <YStack width={'35%'}>
-                    <Text style={styles.descriptionText}>{labelProp1}</Text>
-                    </YStack>
-                  
-                  <Input
-                    value={prop1}
-                    onChangeText={(text: string) => {
-                      onChangeProp1(text);
-                    }}
-                    flex={1}
-                    size="$3"
-                    borderWidth={2}
-                    placeholder={`Nombre Completo`}
-                    style={{ backgroundColor: 'white', color: 'black' }}
-                  />
-                </XStack>
-              )}
-              {labelProp2 && (
-                <XStack
-                  gap="$2"
-                  width={'100%'}
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginRight: 5 }}>
-                  <YStack width={'35%'}>
-                    <Text style={styles.descriptionText}>{labelProp2}</Text>
-                    </YStack>
-                  <Input
-                    value={prop2}
-                    onChangeText={(text: string) => {
-                      onChangeProp2(text);
-                    }}
-                    flex={1}
-                    size="$3"
-                    borderWidth={2}
-                    placeholder={`Rol`}
-                    style={{ backgroundColor: 'white', color: 'black' }}
-                  />
-                </XStack>
-              )}
-              {labelProp3 && (
-                <XStack
-                  gap="$2"
-                  width={'100%'}
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{ marginRight: 5 }}>
-                  <YStack width={'35%'}>
-                    <Text style={styles.descriptionText}>{labelProp3}</Text>
-                    </YStack>
-                  <Input
-                    value={prop3}
-                    onChangeText={(text: string) => {
-                      onChangeProp3(text);
-                    }}
-                    flex={1}
-                    size="$3"
-                    borderWidth={2}
-                    placeholder={`Pin`}
-                    style={{ backgroundColor: 'white', color: 'black' }}
-                  />
-                </XStack>
-              )}
-                  </YStack>
-                
+                  padding="$2">
+                  {labelProp1 && (
+                    <XStack
+                      gap="$2"
+                      width={'100%'}
+                      justifyContent="center"
+                      alignItems="center"
+                      style={{marginRight: 5}}>
+                      <YStack width={'41%'}>
+                        <Text style={styles.descriptionText}>{labelProp1}</Text>
+                      </YStack>
+
+                      <Input
+                        value={prop1}
+                        onChangeText={(text: string) => {
+                          onChangeProp1(text);
+                        }}
+                        flex={1}
+                        size="$3"
+                        borderWidth={2}
+                        placeholder={`Nombre Completo`}
+                        style={{backgroundColor: 'white', color: 'black'}}
+                      />
+                    </XStack>
+                  )}
+                  {labelProp2 && (
+                    <XStack
+                      gap="$2"
+                      width={'100%'}
+                      justifyContent="center"
+                      alignItems="center"
+                      style={{marginRight: 5}}>
+                      <YStack width={'41%'}>
+                        <Text style={styles.descriptionText}>{labelProp2}</Text>
+                      </YStack>
+                      <Input
+                        value={prop2}
+                        onChangeText={(text: string) => {
+                          onChangeProp2(text);
+                        }}
+                        flex={1}
+                        size="$3"
+                        borderWidth={2}
+                        placeholder={`Rol`}
+                        style={{backgroundColor: 'white', color: 'black'}}
+                      />
+                    </XStack>
+                  )}
+                  {labelProp3 && (
+                    <XStack
+                      gap="$2"
+                      width={'100%'}
+                      justifyContent="center"
+                      alignItems="center"
+                      style={{marginRight: 5}}>
+                      <YStack width={'41%'}>
+                        <Text style={styles.descriptionText}>{labelProp3}</Text>
+                      </YStack>
+                      <Input
+                        value={prop3}
+                        onChangeText={(text: string) => {
+                          onChangeProp3(text);
+                        }}
+                        flex={1}
+                        size="$3"
+                        borderWidth={2}
+                        placeholder={`Pin`}
+                        style={{backgroundColor: 'white', color: 'black'}}
+                      />
+                    </XStack>
+                  )}
+
+                  {labelProp4 && (
+                    <XStack
+                      gap="$2"
+                      width={'100%'}
+                      justifyContent="center"
+                      alignItems="center"
+                      style={{marginRight: 5}}>
+                      <YStack width={'41%'}>
+                        <Text style={styles.descriptionText}>{labelProp4}</Text>
+                      </YStack>
+                      <View style={{width:'59%', paddingBottom:10}}>
+                      <RNPickerSelect
+                        style={{
+                          
+                          inputIOS: {
+                            width:200,
+                            fontSize: 16,
+                            borderWidth: 1,
+                            borderColor: 'black',
+                            borderRadius: 4,
+                            color: 'black',
+                          },
+                          inputAndroid: {
+                            width:200,
+                            fontSize: 16,
+                            borderWidth: 1,
+                            borderColor: 'black',
+                            borderRadius: 8,
+                            color: 'black',
+                          },
+                        }}
+                        onValueChange={value => onChangeProp4(value)}
+                        value={prop4}
+                        items={
+                          arrayValues as Item[]
+                        }
+                      />
+                      </View>
+                      
+                    </XStack>
+                  )}
+                </YStack>
               </View>
               <Button
                 size="$3"
@@ -144,31 +194,6 @@ const Dialog: React.FC<DialogProfileProps> = ({
     </Modal>
   );
 };
-
-const buttonStyle = StyleSheet.create({
-  container: {
-    backgroundColor: '#835cf5',
-    borderColor: 'black',
-    borderRadius: 10,
-    borderWidth: 1,
-    paddingHorizontal: 5,
-    marginTop: 5,
-    borderBottomWidth: 2.5,
-    borderRightWidth: 2.5,
-  },
-});
-const buttonStyle2 = StyleSheet.create({
-  container: {
-    backgroundColor: '#a285f3',
-    borderColor: 'black',
-    borderRadius: 10,
-    borderWidth: 1,
-    paddingHorizontal: 5,
-    marginTop: 5,
-    borderBottomWidth: 2.5,
-    borderRightWidth: 2.5,
-  },
-});
 
 const styles = StyleSheet.create({
   overlay: {

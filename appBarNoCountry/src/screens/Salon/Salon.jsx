@@ -237,11 +237,13 @@ console.log("mesas",mesas);
 
       <View>
         <Navbar
+        title={'Salon'}
           role={rol}
           onPressAdd={handleOpenDialog}
           onPressEdit={handleOpenEditDialog}
           showMenu={openMenu}
           onPressMenu={handleOpenMenu}
+          onPlusOptions={true}
         />
       </View>
       <View style={styles.textContainer}>

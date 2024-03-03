@@ -64,6 +64,8 @@ api.interceptors.request.use(
   },
 );
 
+//PERFILES APIS
+
 export const apiCreateProfile = async userData => {
   console.log('USERDATA', userData);
   const token = await AsyncStorage.getItem('accessTokenProfile');
@@ -133,6 +135,148 @@ export const apiDeleteProfile = async id => {
   }
 };
 
+//Categorias API
+export const apiCreateCategory = async categoryData => {
+  console.log('CategoryData', categoryData);
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.post(`${urlApi}/product-categories`, categoryData,  {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log('ERROR Category', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+export const apiEditCategory = async categoryData => {
+  console.log('categoryData', categoryData);
+  const data = {
+    "name": categoryData.name,
+    "description": categoryData.description
+  }
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.patch(`${urlApi}/product-categories/${categoryData.id}`, data,  {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log('ERROR Category', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+export const apiDeleteCategory = async id => {
+  console.log('ID', id);
+
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.delete(`${urlApi}/product-categories/${id}`,   {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return {status: true};
+  } catch (error) {
+    console.log('ERROR PERFIL', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+//Productos API
+
+export const apiCreateProduct = async productData => {
+  console.log('productData', productData);
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.post(`${urlApi}/products`, productData,  {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log('ERROR Producto', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+export const apiEditProduct = async productData => {
+  console.log('productData', productData);
+  const data = {
+    "name": productData.name,
+    "description": productData.description,
+    "price": productData.price,
+    "productCategoryId": productData.productCategoryId,
+  }
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.patch(`${urlApi}/products/${productData.id}`, data,  {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log('ERROR Producto', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+export const apiDeleteProduct = async id => {
+  console.log('ID', id);
+
+  const token = await AsyncStorage.getItem('accessTokenProfile');
+  try {
+    const response = await axios.delete(`${urlApi}/products/${id}`,   {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      console.log('Respuesta del servidor:', response.data);
+
+    return {status: true};
+  } catch (error) {
+    console.log('ERROR Producto', error)
+    return {status: false}
+    throw error; // Puedes manejar el error según sea necesario en tu aplicación
+    //  console.log(error);
+  }
+};
+
+//MESAS APIS
 export const createTables = async numTables => {
   const token = await AsyncStorage.getItem('accessTokenProfile');
 
