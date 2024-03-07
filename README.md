@@ -28,6 +28,9 @@ front / back
 - [Florencia Parodi](https://github.com/florenciaParodi)
 - [Christopher Peralta](https://github.com/ChristopherPeralta)
 
+### TL
+- Daniela Romero
+
 ***
 ## TECNOLOGÍAS UTILIZADAS
 
@@ -85,21 +88,24 @@ front / back
 
 - Pantalla de perfil admin: Cuenta con PIN para ingresar y más funcionalidades que el camarero tales como: agrear categorías al menú, editar perfiles y descargar reportes.
 
-
+***
 
 ### **¿Cómo nos organizamos con el equipo?**
 
-Intentamos coordinar con nuestro UX/UI para contar con la información en Figma y con el grupo de BackEnd para tener los servicios a utilizar en las tareas de cada Sprint.
+Primero creamos un prototipo de baja fidelidad en excalidraw con participación de todo el equipo para entender de que se trataba la app. Luego creamos un Trello grupal donde teníamos tareas según el rol. A su vez en UX/UI se creaba el prototipo de media fidelidad mientras el backend generaba la BDD.
+Una vez terminado el prototipo de media fidelidad, frontend comenzó con el esqueleto y funcionalidades. Por último finalizamos el prototipo de alta fidelidad y los devs llevaron todos los estilos hacia la app.
 
-Creamos un MVP y dividimos las tareas en sprints (con duración de una semana):
+Nos organizamos con las semanas y recomendaciones de No country en cuanto al tiempo de entrega y los sprints.
 
-**Funcionalidades para el MVP:**
+Construimos un MVP.
+
+**Funcionalidades:**
 - Registro
 - Logueo
-- Ver la pantalla de mercado, seleccionar/deseleccionar favoritos e ir a compra
-- Ver la pantalla de compra
-- Ver la pantalla de venta
-- Ver la pantalla de billetera
+- Ver perfil de camarero, 
+- Ver la pantalla de salón (mesas)
+- Ver la pantalla de menú
+- Ver la pantalla de pedido realizado
 
 ## SPRINT 1 - Funcionalidades:
 Crear el Footer, Header y Navbar
