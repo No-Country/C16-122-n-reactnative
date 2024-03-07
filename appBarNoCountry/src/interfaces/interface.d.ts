@@ -23,6 +23,8 @@ export interface ProductQuantity {
 export interface OrderDetail {
   id: number;
   quantity: number;
+  description: string;
+  price: string;
   billOrderId: number;
   productId: number;
   product: Product;

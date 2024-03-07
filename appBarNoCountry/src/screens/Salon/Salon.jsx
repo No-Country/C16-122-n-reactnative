@@ -91,7 +91,7 @@ function Salon({route, navigation}) {
 
   const handleDecrement = () => {
     console.log('ACTUAL COUNT', count);
-    if (count > 0) {
+    if (count > 0 || count > tableLength) {
       console.log('ENTRE A COUNT > 0');
       setCount(count - 1);
     } else {

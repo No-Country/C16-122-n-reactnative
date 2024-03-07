@@ -12,23 +12,61 @@ import {
 import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../../hooks/hooks';
 import {getCategories} from '../../redux/actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import CardProduct from '../../components/CardProduct/CardProduct';
-import {BillOrder} from '../../interfaces/interface';
+import {BillOrder, OrderDetail} from '../../interfaces/interface';
 import {ScreenProp} from '../../Tabs';
 import {AppDispatch} from '../../redux/store';
 import axiosInstance from '../../services/axiosInstance';
+import DialogGeneral from '../../components/Dialog/DialogGeneral';
 
 function Order() {
   const dispatch: AppDispatch = useDispatch();
+  const [isViewEditOrder, setIsViewEditOrder] = useState(false);
+  const [orderSelect, setOrderSelect] = useState<OrderDetail | null>(null);
   const navigation = useNavigation<ScreenProp>();
   const [billOrder, setBillOrder] = useState<BillOrder | null>(null);
   const table = useAppSelector(state => state.table);
 
+  const handleEditOrder = (order: OrderDetail) => {
+    setOrderSelect(order);
+    setIsViewEditOrder(true);
+  };
+  const handleDeleteOrder = async (id: number) => {
+    const {status} = await axiosInstance.delete(`/order-detail/${id}`);
+    if (status) {
+      Alert.alert('Exito', 'Pedido Borrado');
+      getBillOrder();
+    }
+  };
+
+  const handleShowDeleteOrder = (id: number) => {
+    Alert.alert(
+      'Eliminar Pedido',
+      '¿Esta Seguro que Desea Eliminar Este Pedido?',
+      [
+        {
+          text: 'SI',
+          onPress: () => handleDeleteOrder(id),
+        },
+        {
+          text: 'NO',
+        },
+      ],
+    );
+  };
+  const handleChangeData = (key: string, value: string) => {
+    if (!orderSelect) return;
+    const newData: OrderDetail = {...orderSelect, [key]: value};
+    setOrderSelect(newData);
+  };
   const handleMenu = () => {
     navigation.navigate('Menu');
   };
 
+  const handleViewDialogOrder = () => {
+    setOrderSelect(null);
+    setIsViewEditOrder(!isViewEditOrder);
+  };
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
@@ -38,7 +76,19 @@ function Order() {
       getBillOrder();
     }, []),
   );
-
+  const handleSubmitOrder = async () => {
+    if (!orderSelect) return;
+    handleViewDialogOrder();
+    const {quantity, description} = orderSelect;
+    const order = await axiosInstance.patch(`/order-detail/${orderSelect.id}`, {
+      quantity,
+      description,
+    });
+    if (order.status) {
+      Alert.alert('Exito', 'Pedido Editado correctamente');
+      getBillOrder();
+    }
+  };
   const handleBill = () => {
     if (!billOrder) return;
     Alert.alert('Factura.', '¿Esta seguro que desesa facturar esta orden?', [
@@ -50,7 +100,6 @@ function Order() {
         onPress: () => {
           axiosInstance.patch(`/bill-orders/${billOrder.id}/pay`).then(res => {
             const {billOrder} = res.data;
-            console.log('billOrder', billOrder);
             navigation.navigate('Factura', {
               billOrder,
               tableNumber: table.tableNumber,
@@ -61,13 +110,8 @@ function Order() {
     ]);
   };
   const getBillOrder = async () => {
-    const token = await AsyncStorage.getItem('accessTokenProfile');
     axiosInstance
-      .get(`/bill-orders/table/${table.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`/bill-orders/table/${table.id}`)
       .then(res => setBillOrder(res.data.billOrder));
   };
   return (
@@ -92,16 +136,16 @@ function Order() {
           <FlatList
             data={billOrder.orderDetails}
             renderItem={({item}) => (
-              <CardProduct product={item.product} quantity={item.quantity} ></CardProduct>
+              <CardProduct
+                product={item.product}
+                quantity={item.quantity}
+                handleEditProduct={() => handleEditOrder(item)}
+                handleShowDeleteProduct={() => handleShowDeleteOrder(item.id)}
+                havePermision
+              />
             )}
             keyExtractor={item => String(item.id)}
           />
-          {/* <TouchableOpacity>
-            <Image
-              style={styles.trash}
-              source={require('../../assets/trash.png')}
-            />
-          </TouchableOpacity> */}
           <View style={styles.footerContainer}>
             <TouchableOpacity style={styles.total}>
               <Text style={styles.textTotal}>Total: ${billOrder?.total}</Text>
@@ -112,6 +156,20 @@ function Order() {
             </TouchableOpacity>
           </View>
         </>
+      )}
+      {orderSelect && (
+        <DialogGeneral
+          isVisible={isViewEditOrder}
+          title={'Editar una orden'}
+          labelProp1="cantidad"
+          labelProp2="Mensaje"
+          prop1={String(orderSelect.quantity)}
+          prop2={orderSelect.description}
+          onChangeProp1={value => handleChangeData('quantity', value)}
+          onChangeProp2={value => handleChangeData('description', value)}
+          onHidePress={handleViewDialogOrder}
+          onConfirm={handleSubmitOrder}
+        />
       )}
     </View>
   );

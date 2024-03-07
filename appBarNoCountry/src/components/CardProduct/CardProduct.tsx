@@ -10,7 +10,7 @@ interface CardProductProps {
   handleAdd?: (productId: number) => void;
   handleSubtract?: (productId: number) => void;
   quantity: number;
-  isAdmin?: boolean;
+  havePermision?: boolean;
   handleEditProduct?: (product: ProductData) => void;
   handleShowDeleteProduct?: (id: number) => void;
 }
@@ -20,7 +20,7 @@ const CardProduct = ({
   handleAdd,
   handleSubtract,
   quantity,
-  isAdmin = false,
+  havePermision = false,
   handleEditProduct,
   handleShowDeleteProduct,
 }: CardProductProps) => {
@@ -31,7 +31,7 @@ const CardProduct = ({
         style={styles.imageOrder}
         source={require('../../assets/menu/burguer.png')}
       />
-      {isAdmin && (
+      {havePermision && (
         <View
           style={{
             flexDirection: 'row',
@@ -41,7 +41,7 @@ const CardProduct = ({
           }}>
           {handleEditProduct && (
             <Button
-              size="$2"
+              size="$1.5"
               chromeless
               onPress={() => {
                 handleEditProduct({
@@ -57,7 +57,7 @@ const CardProduct = ({
           )}
           {handleShowDeleteProduct && (
             <Button
-              size="$2"
+              size="$1.5"
               chromeless
               onPress={() => handleShowDeleteProduct(id)}>
               <Icon name="delete" color={'red'} size={18} />
