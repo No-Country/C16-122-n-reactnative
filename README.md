@@ -62,10 +62,6 @@ Sabemos que el camarero siempre toma sus pedidos de memoria, en un papel o utili
 ### UX/UI
 - Figma
 ***
-
-### LINKS
-- Trello
-- Figma
 ***
 
 ### **Algunos ejemplos de pantallas**
