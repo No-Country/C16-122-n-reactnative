@@ -103,11 +103,17 @@ Creamos un MVP y dividimos las tareas en sprints (con duración de una semana):
 
 ***
 
-## SPRINT 1 - Figma, log in y salón sin funcionalidades:
+## SPRINT 1
+### **Figma /log in y salón sin funcionalidades :**
 
-## SPRINT 2 - Funcionalidades:
+## SPRINT 2
+### **Perfil camarero, salón, comnanda y perfil admin SIN funcionalidades :**
 
-## SPRINT 3 - Funcionalidades:
+## SPRINT 3
+### **Funcionalidades :**
+
+## SPINT 4
+### **Estilos, errores y funcionalidades extras :**
 
 ***
 
