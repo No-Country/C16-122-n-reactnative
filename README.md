@@ -8,10 +8,6 @@ Sabemos que el camarero siempre toma sus pedidos de memoria, en un papel o utili
 
 ---
 
-## LINKS DE DEPLOY
-
-front / back
-
 ## INTEGRANTES
 
 ### FrontEnd
@@ -27,6 +23,9 @@ front / back
 ### UX/UI
 - [Florencia Parodi](https://github.com/florenciaParodi)
 - [Christopher Peralta](https://github.com/ChristopherPeralta)
+
+### TL
+- Daniela Betania Romero
 
 ***
 ## TECNOLOGÍAS UTILIZADAS
